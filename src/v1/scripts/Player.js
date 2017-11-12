@@ -11,6 +11,7 @@ class Player {
     this.items = [];
 
     this.speed = 0;
+    this.maxSpeed = 2;
     this.direction = 'up';
   }
 
@@ -44,7 +45,7 @@ class Player {
   }
 
   move() {
-    this.speed = 5;
+    this.speed = this.maxSpeed;
     switch (this.direction) {
       case 'up':
         if (this.y - this.speed < 0) {
@@ -68,8 +69,8 @@ class Player {
         }
         break;
       case 'right':
-        if (this.x + this.speed > height) {
-          this.x = height;
+        if (this.x + this.speed > width) {
+          this.x = width;
         } else {
           this.x += this.speed;
         }

@@ -5,11 +5,12 @@ const MOVE_KEYS = {
   right: 68
 }
 
-let player;
+let player, enemy;
 
 function  setup() {
   createCanvas(1000, 700);
   player = new Player();
+  enemy = new NPC(40, 'orange', 4);
 }
 
 function draw() {
@@ -27,8 +28,9 @@ function draw() {
     player.stop();
   }
 
+  // npc movements
+  enemy.follow(player);
 
-
-
+  enemy.render();
   player.render();
 }
