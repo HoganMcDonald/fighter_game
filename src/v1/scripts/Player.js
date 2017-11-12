@@ -3,16 +3,44 @@ class Player {
     this.x = width/2;
     this.y = height/4 * 3;
     this.diameter = 20;
-    this.hp = 100;
     this.color = 'teal';
+
+    this.hit = false;
+    this.hp = 100;
+    this.maxhp = 100;
+    this.items = [];
 
     this.speed = 0;
     this.direction = 'up';
-
   }
 
   changeDirection(direction) {
     this.direction = direction;
+  }
+
+  // returns true if still alive
+  // returns false if dead
+  damage(amount) {
+    if (this.hp - amount <= 0) {
+      return false;
+    } else {
+      this.hp -= amount;
+      return true;
+    }
+  }
+
+  // returns true if item was usable
+  // returns false if wasn't consumed
+  heal(amount) {
+    if (this.hp === this.maxhp) {
+      return false;
+    } else if (this.hp + amount > this.maxhp) {
+      this.hp = this.maxhp;
+      return true;
+    } else {
+      this.hp += amount;
+      return true;
+    }
   }
 
   move() {
@@ -47,7 +75,16 @@ class Player {
         }
         break;
       default:
-        break;
+        return new Error('invalid direction for movement');
+    }
+  }
+
+  raiseMaxhp(amount) {
+    if (this.hp > 0) {
+      this.maxhp += amount;
+      this.hp += amount;
+    } else {
+      return new Error('player has no hp');
     }
   }
 
@@ -59,9 +96,5 @@ class Player {
 
   stop() {
     this.speed = 0;
-  }
-
-  update() {
-
   }
 }
